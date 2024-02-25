@@ -11,11 +11,9 @@ export type RequestMethod = "DELETE" | "POST" | "GET";
 
 class Client {
   private axiosClient: AxiosInstance;
-  private config: Config;
 
   constructor(config: Config) {
     this.axiosClient = this.createClient(config);
-    this.config = config;
   }
 
   createClient(config: Config) {
