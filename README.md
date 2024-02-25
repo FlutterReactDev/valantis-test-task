@@ -1,3 +1,11 @@
+# Valantis React
+
+A React hooks providing a set of queries, utilities, and hooks for work with Valantis API.
+
+# Valantis JS Client
+
+The Valantis JS Client provides easy access to the Valantis API from a client written in Typescript.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
