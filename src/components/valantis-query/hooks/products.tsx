@@ -14,9 +14,11 @@ const PRODUCTS_FILTER_QUERY_KEY = `productsFilter` as const;
 export const useProductsIds = (query?: GetProductIdsParams) => {
   const { client } = useValantis();
   const { data, ...rest } = useQuery({
-    queryKey: [PRODUCTS_IDS_QUERY_KEY, "lists"],
+    queryKey: [
+      PRODUCTS_IDS_QUERY_KEY,
+      Object.values(query || {}).filter(Boolean),
+    ],
     queryFn: () => client.product.listIds(query),
-    staleTime: 0,
   });
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -28,7 +30,7 @@ export const useProductsIds = (query?: GetProductIdsParams) => {
 export const useProductsItem = (query?: GetProductItemParams) => {
   const { client } = useValantis();
   const { data, ...rest } = useQuery({
-    queryKey: [PRODUCTS_ITEMS_QUERY_KEY],
+    queryKey: [PRODUCTS_ITEMS_QUERY_KEY, ...(query?.ids || [])],
     queryFn: () => client.product.listItems(query),
   });
   return { products: data, ...rest } as const;
@@ -58,11 +60,14 @@ export const useProductPrice = () => {
 };
 
 export const useProductItemFilter = (query?: GetProductFilterParams) => {
+  const queryParam = Object.values(query || {}).filter(Boolean);
+
   const { client } = useValantis();
   const { data, ...rest } = useQuery({
-    queryKey: [PRODUCTS_FILTER_QUERY_KEY],
+    queryKey: [PRODUCTS_FILTER_QUERY_KEY, ...queryParam],
     queryFn: () => client.product.listFilter(query),
     staleTime: 0,
+    enabled: !!queryParam.length,
   });
   return { data: data, ...rest } as const;
 };

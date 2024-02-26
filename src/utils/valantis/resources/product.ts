@@ -17,7 +17,7 @@ class ProductResource extends BaseResource {
           brand: query?.brand,
         }),
         ...(query?.price && {
-          price: query?.price,
+          price: query.price,
         }),
         ...(query?.product && {
           product: query?.product,

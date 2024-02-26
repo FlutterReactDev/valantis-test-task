@@ -41,9 +41,10 @@ export const ProductPrice: FC<ProductPriceProps> = (props) => {
       <Slider
         min={min}
         max={max}
-        onValueChange={(val) => {
+        onValueCommit={(val) => {
           onChange(val[0]);
         }}
+        step={10}
         {...(value && {
           defaultValue: [value],
         })}

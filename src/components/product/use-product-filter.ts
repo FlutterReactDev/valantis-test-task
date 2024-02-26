@@ -95,9 +95,11 @@ export const useProductFilter = (existing?: string) => {
     existing = existing.substring(1);
   }
   const initial = useMemo(() => parseQueryString(existing), [existing]);
+
   const [state, dispatch] = useReducer(reducer, initial);
 
   const setQuery = (queryString: string | null) => {
+    reset();
     dispatch({ type: "setQuery", payload: queryString });
   };
 
@@ -110,12 +112,15 @@ export const useProductFilter = (existing?: string) => {
   };
 
   const setBrand = (brand: string | null) => {
+    reset();
     dispatch({ type: "setBrand", payload: brand });
   };
 
   const setPrice = (price: number | null) => {
+    reset();
     dispatch({ type: "setPrice", payload: price });
   };
+
   const paginate = (direction: 1 | -1) => {
     if (direction > 0) {
       const nextOffset = state.offset + state.limit;
@@ -130,7 +135,15 @@ export const useProductFilter = (existing?: string) => {
   const jump = (page: number) => {
     dispatch({ type: "setOffset", payload: page * state.limit });
   };
-
+  const reset = () => {
+    dispatch({
+      type: "reset",
+      payload: {
+        limit: 50,
+        offset: 0,
+      },
+    });
+  };
   const getRepresentationString = () => {
     return qs.stringify(state, {
       skipNulls: true,
@@ -166,6 +179,7 @@ export const useProductFilter = (existing?: string) => {
     [state]
   );
 
+  const isFilterTouched = state.brand || state.price || state.query?.length;
   return {
     setQuery,
     setLimit,
@@ -177,6 +191,8 @@ export const useProductFilter = (existing?: string) => {
     representationObject,
     paginate,
     jump,
+    isFilterChanged: !!isFilterTouched,
+    reset,
   };
 };
 
@@ -215,8 +231,8 @@ const parseQueryString = (queryString?: string): ProductFilterState => {
           break;
         }
         case "price": {
-          if (typeof value === "number") {
-            defaultVal.price = value;
+          if (typeof value === "string") {
+            defaultVal.price = parseInt(value);
           }
           break;
         }
