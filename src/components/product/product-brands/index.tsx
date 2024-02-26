@@ -30,7 +30,10 @@ export const ProductBrands: FC<ProductBrandsProps> = (props) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
+      <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+        Бренды
+      </h2>
       <div className="flex gap-2 flex-wrap">
         {[...new Set(...[brands.filter(Boolean)])].map((name, idx) => {
           const brandName = name as string;
@@ -47,6 +50,6 @@ export const ProductBrands: FC<ProductBrandsProps> = (props) => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };

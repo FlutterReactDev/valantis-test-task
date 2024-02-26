@@ -61,43 +61,49 @@ export const ProductList = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <Input
-        type="text"
-        placeholder="Поиск"
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
-        value={state.query || ""}
-      />
-      <ProductBrands setBrands={setBrand} activeBrand={state.brand} />
-      <ProductPrice value={state.price} onChange={setPrice} />
-      <div>
-        <Button onClick={reset}>
-          <TrashIcon className="w-5 h-5" /> Сбросить фильтры
-        </Button>
+    <div className="flex h-full gap-2">
+      <div className="max-w-xs h-full overflow-y-auto">
+        <ProductPrice value={state.price} onChange={setPrice} />
       </div>
 
-      <ProductItems
-        isGetIdsLoading={dataLoading}
-        ids={isFilterChanged ? [...new Set(data)] : [...new Set(products)]}
-        isFilterChanged={isFilterChanged}
-        offset={state.offset}
-        limit={state.limit}
-      />
+      <div className="flex flex-col gap-4">
+        <Input
+          type="text"
+          placeholder="Поиск"
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
+          value={state.query || ""}
+        />
+        <ProductBrands setBrands={setBrand} activeBrand={state.brand} />
 
-      <ProductPagintaion
-        limit={state.limit}
-        onJump={(page: number) => {
-          jump(page);
-        }}
-        onNext={() => paginate(1)}
-        onPrev={() => paginate(-1)}
-        value={state.offset / state.limit}
-        offset={state.offset}
-        isFilterChanged={isFilterChanged}
-        count={data?.length ? Math.ceil(data.length / state.limit) : 0}
-      />
+        <div>
+          <Button onClick={reset}>
+            <TrashIcon className="w-5 h-5" /> Сбросить фильтры
+          </Button>
+        </div>
+
+        <ProductItems
+          isGetIdsLoading={dataLoading}
+          ids={isFilterChanged ? [...new Set(data)] : [...new Set(products)]}
+          isFilterChanged={isFilterChanged}
+          offset={state.offset}
+          limit={state.limit}
+        />
+
+        <ProductPagintaion
+          limit={state.limit}
+          onJump={(page: number) => {
+            jump(page);
+          }}
+          onNext={() => paginate(1)}
+          onPrev={() => paginate(-1)}
+          value={state.offset / state.limit}
+          offset={state.offset}
+          isFilterChanged={isFilterChanged}
+          count={data?.length ? Math.ceil(data.length / state.limit) : 0}
+        />
+      </div>
     </div>
   );
 };
