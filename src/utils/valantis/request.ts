@@ -30,14 +30,11 @@ class Client {
       currentDate.getMonth() + 1 > 10
         ? currentDate.getMonth() + 1
         : `0${currentDate.getMonth() + 1}`
-    }${currentDate.getDate()}`; 
-  
+    }${currentDate.getDate()}`;
 
     const xAuth = md5(`${VITE_VALANTIS_BACKEND_PASSWORD}_${formattedDate}`);
-    console.log(xAuth);
-    
+
     const defaultHeaders: Record<string, any> = {
-      Accept: "application/json",
       "Content-Type": "application/json",
       "X-Auth": xAuth,
     };
@@ -51,7 +48,6 @@ class Client {
   ): Promise<any> {
     const reqOpts = {
       method,
-      withCredentials: true,
       url: path,
       json: true,
       headers: this.setHeaders(),
