@@ -61,12 +61,12 @@ export const ProductList = () => {
   }
 
   return (
-    <div className="flex h-full gap-2">
-      <div className="max-w-xs h-full overflow-y-auto">
+    <div className="flex h-full gap-2 flex-col lg:flex-row">
+      <div className="max-w-xs h-full lg:overflow-y-auto">
         <ProductPrice value={state.price} onChange={setPrice} />
       </div>
 
-      <div className="flex flex-col gap-4 h-full overflow-y-auto w-full">
+      <div className="flex flex-col gap-4 h-full lg:overflow-y-auto w-full">
         <Input
           type="text"
           placeholder="Поиск"

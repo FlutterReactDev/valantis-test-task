@@ -2,7 +2,7 @@ import { ProductList } from "@components/product";
 
 function App() {
   return (
-    <div className="h-dvh p-4">
+    <div className="lg:h-dvh p-4">
       <ProductList />
     </div>
   );
