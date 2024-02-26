@@ -57,6 +57,7 @@ export const ProductPagintaion: FC<ProductPagintaionProps> = (props) => {
               "cursor-pointer",
               offset <= 0 && "pointer-events-none"
             )}
+            
             isActive
             {...(offset <= 0 && {
               isActive: false,
@@ -64,15 +65,16 @@ export const ProductPagintaion: FC<ProductPagintaionProps> = (props) => {
           />
         </PaginationItem>
         <ScrollArea className="max-w-60 w-full overflow-hidden whitespace-nowrap rounded-md">
-          {pageNumbers.map((page) => {
+          {pageNumbers.map((page, idx) => {
             return (
               <PaginationLink
-                {...(value + 1 == page && {
+                {...(value == idx && {
                   isActive: true,
                 })}
                 key={page}
                 className="cursor-pointer"
-                onClick={() => onJump(page)}
+                onClick={() => onJump(page-1)}
+                
               >
                 {page}
               </PaginationLink>
