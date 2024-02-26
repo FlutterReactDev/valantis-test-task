@@ -66,7 +66,7 @@ export const ProductList = () => {
         <ProductPrice value={state.price} onChange={setPrice} />
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 h-full overflow-y-auto">
         <Input
           type="text"
           placeholder="Поиск"
