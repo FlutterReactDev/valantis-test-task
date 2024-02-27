@@ -20,12 +20,18 @@ import { FC, useState } from "react";
 import { ProductPriceSkeleton } from "./skeleton";
 interface ProductPriceProps {
   value: number | null | undefined;
-  onChange: (value: number) => void;
+  onChange: (value: number | null) => void;
 }
 export const ProductPrice: FC<ProductPriceProps> = (props) => {
   const { onChange, value } = props;
   const [open, setOpen] = useState(false);
   const { price, isLoading, error, isError } = useProductPrice();
+  const onChangePrice = (currentValue: number | null) => {
+    if (value && value == currentValue) {
+      return onChange(null);
+    }
+    onChange(currentValue);
+  };
 
   if (isLoading) {
     return (
@@ -71,7 +77,7 @@ export const ProductPrice: FC<ProductPriceProps> = (props) => {
                   className="cursor-pointer "
                   variant={isSelected ? "default" : "outline"}
                   key={`${price}-${idx}`}
-                  onClick={() => onChange(price)}
+                  onClick={() => onChangePrice(price)}
                 >
                   {RUB.format(price)}
                 </Badge>
@@ -103,7 +109,7 @@ export const ProductPrice: FC<ProductPriceProps> = (props) => {
                         variant={isSelected ? "default" : "outline"}
                         key={`${price}-${idx}`}
                         onClick={() => {
-                          onChange(price);
+                          onChangePrice(price);
                           setOpen(false);
                         }}
                       >

@@ -4,13 +4,16 @@ import { Badge } from "@components/ui/badge";
 import { FC } from "react";
 interface ProductBrandsProps {
   activeBrand: string | null | undefined;
-  setBrands: (brands: string) => void;
+  setBrands: (brands: string | null) => void;
 }
 export const ProductBrands: FC<ProductBrandsProps> = (props) => {
   const { activeBrand, setBrands } = props;
   const { brands, isLoading } = useProductBrands();
 
   const onChange = (brandName: string) => {
+    if (activeBrand == brandName) {
+      return setBrands(null);
+    }
     setBrands(brandName);
   };
 

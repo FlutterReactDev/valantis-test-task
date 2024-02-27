@@ -30,7 +30,11 @@ export const ProductList = () => {
   };
 
   useEffect(() => {
-    updateUrlFromFilter(stringify(representationObject));
+    updateUrlFromFilter(
+      stringify(representationObject, {
+        skipNulls: true,
+      })
+    );
   }, [representationObject]);
 
   const { products, isLoading, isError, error } = useProductsIds({
@@ -66,7 +70,7 @@ export const ProductList = () => {
         <ProductPrice value={state.price} onChange={setPrice} />
       </div>
 
-      <div className="flex flex-col gap-4 h-full lg:overflow-y-auto w-full">
+      <div className="flex flex-col gap-4 h-full lg:overflow-y-auto w-full py-4">
         <Input
           type="text"
           placeholder="Поиск"

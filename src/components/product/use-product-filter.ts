@@ -113,6 +113,7 @@ export const useProductFilter = (existing?: string) => {
 
   const setBrand = (brand: string | null) => {
     reset();
+
     dispatch({ type: "setBrand", payload: brand });
   };
 
