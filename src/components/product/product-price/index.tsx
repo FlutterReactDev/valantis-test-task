@@ -74,47 +74,49 @@ export const ProductPrice: FC<ProductPriceProps> = (props) => {
             })}
         </div>
       </div>
-      <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger asChild>
-          <Button>
-            <HamburgerMenuIcon className="h-5 w-5 mr-2" /> Цена
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className="flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
-          <DrawerHeader className="text-left">
-            <DrawerTitle>Цена</DrawerTitle>
-            <DrawerDescription>Выберите цену</DrawerDescription>
-          </DrawerHeader>
-          <div className="flex flex-col overflow-auto p-4 rounded-t-[10px]">
-            <div className="flex gap-2 flex-wrap">
-              {prices
-                .sort((a: number, b: number) => a - b)
-                .map((price, idx) => {
-                  const isSelected = value == price;
-                  return (
-                    <Badge
-                      className="cursor-pointer "
-                      variant={isSelected ? "default" : "outline"}
-                      key={`${price}-${idx}`}
-                      onClick={() => {
-                        onChange(price);
-                        setOpen(false);
-                      }}
-                    >
-                      {RUB.format(price)}
-                    </Badge>
-                  );
-                })}
+      <div className="lg:hidden block">
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            <Button>
+              <HamburgerMenuIcon className="h-5 w-5 mr-2" /> Цена
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent className="flex flex-col fixed bottom-0 left-0 right-0 max-h-[96%] rounded-t-[10px]">
+            <DrawerHeader className="text-left">
+              <DrawerTitle>Цена</DrawerTitle>
+              <DrawerDescription>Выберите цену</DrawerDescription>
+            </DrawerHeader>
+            <div className="flex flex-col overflow-auto p-4 rounded-t-[10px]">
+              <div className="flex gap-2 flex-wrap">
+                {prices
+                  .sort((a: number, b: number) => a - b)
+                  .map((price, idx) => {
+                    const isSelected = value == price;
+                    return (
+                      <Badge
+                        className="cursor-pointer "
+                        variant={isSelected ? "default" : "outline"}
+                        key={`${price}-${idx}`}
+                        onClick={() => {
+                          onChange(price);
+                          setOpen(false);
+                        }}
+                      >
+                        {RUB.format(price)}
+                      </Badge>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
 
-          <DrawerFooter className="pt-2">
-            <DrawerClose asChild>
-              <Button variant="outline">Закрыть</Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+            <DrawerFooter className="pt-2">
+              <DrawerClose asChild>
+                <Button variant="outline">Закрыть</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
     </>
   );
 };
