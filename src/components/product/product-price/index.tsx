@@ -17,6 +17,7 @@ import {
   HamburgerMenuIcon,
 } from "@radix-ui/react-icons";
 import { FC, useState } from "react";
+import { ProductPriceSkeleton } from "./skeleton";
 interface ProductPriceProps {
   value: number | null | undefined;
   onChange: (value: number) => void;
@@ -27,7 +28,11 @@ export const ProductPrice: FC<ProductPriceProps> = (props) => {
   const { price, isLoading, error, isError } = useProductPrice();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-full w-full">
+        <ProductPriceSkeleton />
+      </div>
+    );
   }
   if (isError) {
     return (

@@ -62,7 +62,7 @@ export const ProductList = () => {
 
   return (
     <div className="flex h-full gap-2 flex-col lg:flex-row">
-      <div className="max-w-xs h-full lg:overflow-y-auto">
+      <div className="max-w-xs w-full h-full lg:overflow-y-auto">
         <ProductPrice value={state.price} onChange={setPrice} />
       </div>
 
