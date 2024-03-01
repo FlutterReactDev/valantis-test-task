@@ -25,7 +25,7 @@ class Client {
   }
 
   setHeaders() {
-    const currentDate = subHours(new Date(), 2);
+    const currentDate = subHours(new Date(), 3);
     const formattedDate = `${currentDate.getFullYear()}${
       currentDate.getMonth() + 1 > 10
         ? currentDate.getMonth() + 1
