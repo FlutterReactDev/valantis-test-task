@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { md5 } from "js-md5";
 import { VITE_VALANTIS_BACKEND_PASSWORD } from "../../constants/valantis-backend-password";
-
+import { subHours } from "date-fns";
 export interface Config {
   baseUrl: string;
   customHeaders?: Record<string, any>;
@@ -25,7 +25,7 @@ class Client {
   }
 
   setHeaders() {
-    const currentDate = new Date();
+    const currentDate = subHours(new Date(), 2);
     const formattedDate = `${currentDate.getFullYear()}${
       currentDate.getMonth() + 1 > 10
         ? currentDate.getMonth() + 1
