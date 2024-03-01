@@ -30,8 +30,12 @@ class Client {
       currentDate.getMonth() + 1 > 10
         ? currentDate.getMonth() + 1
         : `0${currentDate.getMonth() + 1}`
-    }${currentDate.getDate()}`;
-
+    }${
+      currentDate.getDate() < 10
+        ? `0${currentDate.getDate()}`
+        : currentDate.getDate()
+    }`;
+    console.log(formattedDate);
     const xAuth = md5(`${VITE_VALANTIS_BACKEND_PASSWORD}_${formattedDate}`);
 
     const defaultHeaders: Record<string, any> = {
